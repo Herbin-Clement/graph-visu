@@ -1,0 +1,17 @@
+.vertice {
+    box-sizing: border-box;
+    background-color: white;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    text-align: center;
+}
+
+.row:first-child > div {
+    border-top: 1px solid black;
+}
+
+.row > div:first-child {
+    border-left: 1px solid black;
+}
