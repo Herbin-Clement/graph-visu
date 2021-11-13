@@ -10,3 +10,6 @@ const extractMinValue = (distances) => {
     return {vmin, dmin};
 }
 
+const Dijkstra = (G, start_vertice) => {
+
+}

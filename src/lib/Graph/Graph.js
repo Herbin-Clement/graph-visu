@@ -32,4 +32,20 @@ export default class Graph {
     neighbors(id) {
         return this.vertices.get(id);
     }
+
+    get_vertices() {
+        return this.vertices.keys();
+    }
+
+    get_edges() {
+        const res = new Set();
+        for (const [vertice, neighbors] of this.vertices.entries()) {
+            for (const neighbor of neighbors) {
+                const edge = new Set();
+                edge.add(vertice);
+                edge.add(neighbor);
+                res.add(edge);
+            }
+        }
+    }
 }
