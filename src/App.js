@@ -4,39 +4,47 @@ import Vertice from "./Components/Vertice.jsx";
 
 import './App.css';
 
-const nbRow = 12;
-const nbCol = 25;
-
-const createA = (nbCol, nbRow) => {
-  return new Array(nbRow).fill(new Array(nbCol).fill(false));
-}
+const nbRow = 30;
+const nbCol = 18;
 
 function App() {
 
-  const handleClick = (col, row) => {
-    console.log(`col: ${col}, row: ${row}`);
-  }
+  const [grid, setGrid] = useState(new Array(nbCol).fill(new Array(nbRow).fill(false)));
+  const [visited, setVisited] = useState([]);
 
-  const [vertice, setVertices] = useState(createA(nbCol, nbRow, handleClick));
+  const handleClick = (e, id) => {
+    if (!visited.includes(id)) {
+      const tmp = [...visited];
+      tmp.push(id);
+      setVisited(tmp);
+      console.log(tmp);
+    }
+  }
 
   return (
     <div className="App">
-      <div className="grid">
-      {
-        vertice.map((row, i) => {
-          return (
-            <div className="row">
-              {
-                row.map((v, j) => {
-                  const idx = i * nbRow + j * nbCol;
-                  return <Vertice key={idx} col={j} row={i} nbCol={nbCol} nbRow={nbRow} value={v} handleClick={handleClick}/>
-                })
-              }
-            </div>
-          );
-        })
-      }
-      </div>
+        <div className="grid">
+          {grid.map((row, rowIdx) => {
+            return (
+              <div key={rowIdx} className="row">
+                {row.map((cell, colIdx) => {
+                  const id = nbRow * rowIdx + colIdx;
+                  if (visited.includes(id)) cell = true;
+                  return (
+                    <Vertice 
+                      key={id}
+                      id={id} 
+                      row={rowIdx} 
+                      col={colIdx} 
+                      value={cell} 
+                      handleClick={handleClick}
+                      />
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>  
     </div>
   );
 }
