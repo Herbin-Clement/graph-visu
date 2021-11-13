@@ -1,11 +1,14 @@
 .vertice {
     box-sizing: border-box;
     background-color: white;
+    width: 5vh;
+    height: 5vh;
     padding: 0;
     margin: 0;
     border-bottom: 1px solid black;
     border-right: 1px solid black;
     text-align: center;
+    cursor: pointer;
 }
 
 .row:first-child > div {

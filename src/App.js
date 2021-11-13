@@ -1,34 +1,39 @@
-import "./Components/Vertice.jsx";
+import { useState } from "react";
 
-import './App.css';
 import Vertice from "./Components/Vertice.jsx";
 
-const w = 75;
-const h = 75;
-const nbRow = 20;
-const nbCol = 20;
+import './App.css';
 
-const createA = (x, y) => {
-  const tab = new Array(y).fill(new Array(x).fill(null));
-  return tab.map((row, i) => {
-    return row.map((column, j) => {
-      const idx = i * 10 + j;
-      return <Vertice key={idx} name={idx} nbCol={nbCol} nbRow={nbRow}/>
-    })
-  });
+const nbRow = 12;
+const nbCol = 25;
+
+const createA = (nbCol, nbRow) => {
+  return new Array(nbRow).fill(new Array(nbCol).fill(false));
 }
 
 function App() {
+
+  const handleClick = (col, row) => {
+    console.log(`col: ${col}, row: ${row}`);
+  }
+
+  const [vertice, setVertices] = useState(createA(nbCol, nbRow, handleClick));
+
   return (
     <div className="App">
-      <div style={{height: h.toString() + "vh", width: w.toString() + "vw"}} className="grid">
+      <div className="grid">
       {
-        createA(nbRow, nbCol).map((e, i) => {
+        vertice.map((row, i) => {
           return (
-            <div key={i} className="row" style={{height: (100/nbRow).toString() + "%"}}>
-              {e}
+            <div className="row">
+              {
+                row.map((v, j) => {
+                  const idx = i * nbRow + j * nbCol;
+                  return <Vertice key={idx} col={j} row={i} nbCol={nbCol} nbRow={nbRow} value={v} handleClick={handleClick}/>
+                })
+              }
             </div>
-          )
+          );
         })
       }
       </div>

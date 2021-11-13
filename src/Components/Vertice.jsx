@@ -1,9 +1,10 @@
 import "./Vertice.css";
 
-const Vertice = ({name, nbCol, nbRow}) => {
+const Vertice = ({col, row, nbCol, nbRow, value, handleClick}) => {
+    console.log(value);
     return (
-        <div className="vertice" style={{width: (100/nbCol).toString() + "%"}}>
-            {name}
+        <div onClick={() => handleClick(col, row)} className="vertice" style={{backgroundColor: value ? "black" : "white"}}>
+            
         </div>
     )
 }
