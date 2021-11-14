@@ -1,14 +1,22 @@
 import Graph from "./Graph/Graph.js";
 import { Dijkstra } from "./Dijkstra/Dijktra.js";
 
-const createGraph = () => {
+const createGridGraph = (w, h) => {
     const graph = new Graph();
-    graph.add_edges(0, 1);
-    graph.add_edges(1, 2);
-    graph.add_edges(2, 3);
-    graph.add_edges(0, 3);
-    graph.add_edges(3, 4);
-    console.log(Dijkstra(graph, 0));
+    for (let i = 0; i < h; i++) {
+        for (let j = 0; j < w; j++) {
+            const id = i * h + j;
+            if (i < h - 1 && j < w - 1) {
+                graph.add_edges(id, id + 1)
+                graph.add_edges(id, id + w);
+            } else if (i < h - 1 && j === w - 1) {
+                graph.add_edges(id, id + w);
+            } else if (i === h - 1 && j < w - 1) {
+                graph.add_edges(id, id + 1);
+            }
+        }
+    }
+    return graph;
 }
 
-export { createGraph };
+export { createGridGraph };

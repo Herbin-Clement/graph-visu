@@ -25,13 +25,10 @@ const initialiseDistance = (start_vertice, vertices) => {
 }
 
 const Dijkstra = (G, start_vertice) => {
-    let count = 5;
-    console.log("yo");
     let vertices = G.get_vertices();
     console.log("vertices", vertices);
     const distances = initialiseDistance(start_vertice, vertices);
     while (vertices.length !== 0) {
-        count-=1;
         const {vmin, dmin, tmp} = extractMinValue(distances, vertices);
         vertices = tmp;
         for (const neighbor of G.neighbors(vmin)) {

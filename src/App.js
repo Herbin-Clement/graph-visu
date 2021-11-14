@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createGraph } from "./lib/lib.js";
+import { createGridGraph } from "./lib/lib.js";
 
 import Vertice from "./Components/Vertice.jsx";
 
@@ -7,7 +7,7 @@ import './App.css';
 
 const nbRow = 30;
 const nbCol = 18;
-createGraph();
+createGridGraph();
 
 function App() {
 
