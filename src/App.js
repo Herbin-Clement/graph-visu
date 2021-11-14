@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createGraph } from "./lib/lib.js";
 
 import Vertice from "./Components/Vertice.jsx";
 
@@ -6,19 +7,25 @@ import './App.css';
 
 const nbRow = 30;
 const nbCol = 18;
+createGraph();
 
 function App() {
 
   const [grid, setGrid] = useState(new Array(nbCol).fill(new Array(nbRow).fill(false)));
   const [visited, setVisited] = useState([]);
 
+
   const handleClick = (e, id) => {
+    let tmp;
     if (!visited.includes(id)) {
-      const tmp = [...visited];
+      tmp = [...visited];
       tmp.push(id);
       setVisited(tmp);
-      console.log(tmp);
+    } else {
+      tmp = [...visited].filter((e) => e !== id);
+      setVisited(tmp);
     }
+    console.log(tmp);
   }
 
   return (

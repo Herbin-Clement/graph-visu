@@ -1,17 +1,27 @@
 export default class Graph {
-    constructor(nbCol, nbRow) {
+    constructor() {
         this.vertices = new Map();
     }
 
     add_vertice(v) {
-        this.vertices.set(v, []);
+        if (!this.is_vertice(v)) this.vertices.set(v, []);
     }
 
     remove_vertice(v) {
         this.vertices.delete(v);
+        for (const [vertice, neighbors] of this.vertices.entries()) {
+            neighbors = neighbors.filter((e) => e !== v);
+            this.vertices.set(vertice, neighbors);
+        }
+    }
+
+    is_vertice(v) {
+        return !(this.vertices.get(v) === undefined);
     }
 
     add_edges(u, v) {
+        if (!this.is_vertice(u)) this.add_vertice(u)
+        if (!this.is_vertice(v)) this.add_vertice(v)
         const tmp_u = this.vertices.get(u);
         const tmp_v = this.vertices.get(v);
         tmp_u.push(v);
@@ -34,7 +44,11 @@ export default class Graph {
     }
 
     get_vertices() {
-        return this.vertices.keys();
+        const res = [];
+        for (const key of this.vertices.keys()) {
+            res.push(key);
+        }
+        return res;
     }
 
     get_edges() {
@@ -47,5 +61,6 @@ export default class Graph {
                 res.add(edge);
             }
         }
+        return res;
     }
 }
