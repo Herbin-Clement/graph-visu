@@ -1,6 +1,8 @@
 export default class Graph {
-    constructor() {
+    constructor(w, h) {
         this.vertices = new Map();
+        this.w = w;
+        this.h = h;
     }
 
     add_vertice(v) {
@@ -61,6 +63,12 @@ export default class Graph {
                 res.add(edge);
             }
         }
+        return res;
+    }
+
+    getGraphRepresentation() {
+        const vertices = this.get_vertices();
+        const res = new Array(this.h).fill(new Array(this.w).fill(false));
         return res;
     }
 }

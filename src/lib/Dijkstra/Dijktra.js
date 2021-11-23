@@ -1,5 +1,3 @@
-import Graph from "../Graph/Graph";
-
 const extractMinValue = (distances, vertices) => {
     let dmin = Infinity;
     let vmin = null;
@@ -11,7 +9,6 @@ const extractMinValue = (distances, vertices) => {
         }
     }
     vertices = vertices.filter((v) => v !== vmin);
-    console.log(vertices);
     return {vmin, dmin, tmp: vertices};
 }
 
@@ -26,7 +23,6 @@ const initialiseDistance = (start_vertice, vertices) => {
 
 const Dijkstra = (G, start_vertice) => {
     let vertices = G.get_vertices();
-    console.log("vertices", vertices);
     const distances = initialiseDistance(start_vertice, vertices);
     while (vertices.length !== 0) {
         const {vmin, dmin, tmp} = extractMinValue(distances, vertices);

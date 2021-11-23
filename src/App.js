@@ -1,18 +1,21 @@
 import { useState } from "react";
-import { createGridGraph } from "./lib/lib.js";
+import { Dijkstra } from "./lib/Dijkstra/Dijktra.js";
+import { createGridGraph, w, h } from "./lib/lib.js";
 
 import Vertice from "./Components/Vertice.jsx";
 
 import './App.css';
 
-const nbRow = 30;
-const nbCol = 18;
-createGridGraph();
-
 function App() {
 
-  const [grid, setGrid] = useState(new Array(nbCol).fill(new Array(nbRow).fill(false)));
+  const graph = createGridGraph(w, h);
+
+  console.log(Dijkstra(graph, 0));
+
+  const [grid, setGrid] = useState(graph.getGraphRepresentation());
   const [visited, setVisited] = useState([]);
+
+
 
 
   const handleClick = (e, id) => {
@@ -31,18 +34,18 @@ function App() {
   return (
     <div className="App">
         <div className="grid">
-          {grid.map((row, rowIdx) => {
+          {grid.map((row, y) => {
             return (
-              <div key={rowIdx} className="row">
-                {row.map((cell, colIdx) => {
-                  const id = nbRow * rowIdx + colIdx;
+              <div key={y} className="row">
+                {row.map((cell, x) => {
+                  const id = w * y + x;
                   if (visited.includes(id)) cell = true;
                   return (
                     <Vertice 
                       key={id}
                       id={id} 
-                      row={rowIdx} 
-                      col={colIdx} 
+                      y={y} 
+                      x={x} 
                       value={cell} 
                       handleClick={handleClick}
                       />
