@@ -24,6 +24,7 @@ const initialiseDistance = (start_vertice, vertices) => {
 const Dijkstra = (G, start_vertice, end_vertice) => {
     let vertices = G.get_vertices();
     let prev = new Array(G.get_nb_vertice);
+    let display = [];
     const distances = initialiseDistance(start_vertice, vertices);
     while (vertices.length !== 0) {
         const {vmin, dmin, tmp} = extractMinValue(distances, vertices);
@@ -32,11 +33,12 @@ const Dijkstra = (G, start_vertice, end_vertice) => {
             if (distances.get(neighbor) > dmin + 1) {
                 distances.set(neighbor, dmin + 1);
                 prev[neighbor] = vmin;
-                if (neighbor == end_vertice) return {distances, prev};
+                display.push(neighbor);
+                if (neighbor == end_vertice) return {distances, prev, display};
             }
         }
     }
-    return { distances, prev };
+    return { distances, prev, display };
 }
 
 const getPath = (prev, start, end) => {
