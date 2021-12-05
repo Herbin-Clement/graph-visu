@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Dijkstra } from "./lib/Dijkstra/Dijktra.js";
+import { Dijkstra, getPath } from "./lib/Dijkstra/Dijktra.js";
 import { createGridGraph, w, h } from "./lib/lib.js";
 
 import Vertice from "./Components/Vertice.jsx";
@@ -10,11 +10,19 @@ function App({ text, id }) {
 
   const graph = createGridGraph(w, h);
 
-  console.log(Dijkstra(graph, 0));
+  const {distances, prev} = Dijkstra(graph, 322, 973);
 
+  // console.log(distances);
+  // console.log(prev);
+  const path = getPath(prev, 322, 973);
+  console.log(path);
+  
   const [grid, setGrid] = useState(graph.getGraphRepresentation());
   const [visited, setVisited] = useState([]);
-
+  
+  distances.forEach((v,i) => {
+    if (v !== Infinity) visited.push(i);
+  });
 
   const handleClick = (e, id) => {
     let tmp;
@@ -26,7 +34,6 @@ function App({ text, id }) {
       tmp = [...visited].filter((e) => e !== id);
       setVisited(tmp);
     }
-    console.log(tmp);
   }
 
   return (
