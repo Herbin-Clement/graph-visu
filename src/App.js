@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dijkstra } from "./lib/Dijkstra/Dijktra.js";
 import { createGridGraph, w, h } from "./lib/lib.js";
 
@@ -6,7 +6,7 @@ import Vertice from "./Components/Vertice.jsx";
 
 import './App.css';
 
-function App() {
+function App({ text, id }) {
 
   const graph = createGridGraph(w, h);
 
@@ -14,8 +14,6 @@ function App() {
 
   const [grid, setGrid] = useState(graph.getGraphRepresentation());
   const [visited, setVisited] = useState([]);
-
-
 
 
   const handleClick = (e, id) => {
