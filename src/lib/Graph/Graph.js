@@ -45,6 +45,10 @@ export default class Graph {
         return this.vertices.get(id);
     }
 
+    get_nb_vertice() {
+        return this.vertices.length;
+    }
+
     get_vertices() {
         const res = [];
         for (const key of this.vertices.keys()) {

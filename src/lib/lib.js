@@ -1,8 +1,8 @@
 import Graph from "./Graph/Graph.js";
 import { Dijkstra } from "./Dijkstra/Dijktra.js";
 
-const w = 10;
-const h = 5;
+const w = 50;
+const h = 25;
 
 const createGridGraph = (w, h) => {
     const graph = new Graph(w, h);

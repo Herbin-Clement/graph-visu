@@ -23,15 +23,19 @@ const initialiseDistance = (start_vertice, vertices) => {
 
 const Dijkstra = (G, start_vertice) => {
     let vertices = G.get_vertices();
+    let prev = new Array(G.get_nb_vertice);
     const distances = initialiseDistance(start_vertice, vertices);
     while (vertices.length !== 0) {
         const {vmin, dmin, tmp} = extractMinValue(distances, vertices);
         vertices = tmp;
         for (const neighbor of G.neighbors(vmin)) {
-            distances.set(neighbor, Math.min(distances.get(neighbor), dmin + 1));
+            if (distances.get(neighbor) > dmin + 1) {
+                distances.set(neighbor, dmin + 1);
+                prev[neighbor] = vmin;
+            }
         }
     }
-    return distances;
+    return { distances, prev };
 }
 
 export { Dijkstra };
