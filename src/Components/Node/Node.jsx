@@ -2,7 +2,7 @@ import "./Node.css";
 
 const Node = ({id, x, y, value, handleClick}) => {
     return (
-        <div /*onClick={(e) => handleClick(e, id)}*/
+        <div onClick={() => handleClick(id)}
              className="vertice" 
              style={
                  {

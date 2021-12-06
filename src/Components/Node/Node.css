@@ -1,5 +1,8 @@
 .vertice {
     box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: white;
     width: 3.2vh;
     height: 3.2vh;
@@ -8,6 +11,30 @@
     border-right: 1px solid black;
     text-align: center;
     cursor: pointer;
+}
+
+.circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+    height: 75%;
+    background-color: black;
+}
+
+.start {
+    border-radius: 51% 49% 44% 56% / 21% 25% 75% 79%;
+}
+
+.end {
+    border-radius: 51% 49% 44% 56% / 79% 85% 15% 21%;
+}
+
+.subcircle {
+    width: 33%;
+    height: 33%;
+    background-color: #FFC40A;
+    border-radius: 50%;
 }
 
 .row:first-child > div {

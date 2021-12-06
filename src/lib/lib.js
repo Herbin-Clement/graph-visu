@@ -3,6 +3,10 @@ import Graph from "./Graph/Graph.js";
 const w = 50;
 const h = 25;
 
+const y_initial = Math.floor(h / 2);
+const x_start_initial = Math.floor(w / 4);
+const x_end_initial = Math.floor(3 * w / 4);
+
 const createGridGraph = (w, h) => {
     const graph = new Graph(w, h);
     for (let i = 0; i < h; i++) {
@@ -29,4 +33,4 @@ const D1toD2 = (id) => {
     return {x: Math.floor(id / w), y: id % w}
 }
 
-export { createGridGraph, h , w, D2toD1, D1toD2 };
+export { createGridGraph, h , w, D2toD1, D1toD2, x_start_initial, x_end_initial, y_initial };

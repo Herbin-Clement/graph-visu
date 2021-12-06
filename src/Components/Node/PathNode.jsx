@@ -1,8 +1,8 @@
 import "./Node.css";
 
-const PathNode = ({id, x, y, value, handleClick}) => {
+const PathNode = ({id, x, y, value}) => {
     return (
-        <div /*onClick={(e) => handleClick(e, id)}*/
+        <div
              className="vertice" 
              style={
                  {

@@ -1,16 +1,16 @@
 import "./Node.css";
 
-const EndNode = ({id, x, y, value, handleClick}) => {
+const EndNode = ({id, x, y, value}) => {
     return (
-        <div /*onClick={(e) => handleClick(e, id)}*/
+        <div
              className="vertice" 
              style={
                  {
                      backgroundColor: "#FFC40A",
-                    //  borderRadius: "24% 76% 32% 68% / 71% 30% 70% 29%"
                  }
             }
             >
+                <div class="circle end"></div>
         </div>
     )
 }
