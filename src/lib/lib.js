@@ -1,5 +1,4 @@
 import Graph from "./Graph/Graph.js";
-import { Dijkstra } from "./Dijkstra/Dijktra.js";
 
 const w = 50;
 const h = 25;

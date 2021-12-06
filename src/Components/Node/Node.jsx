@@ -1,12 +1,12 @@
 import "./Node.css";
 
-const PathNode = ({id, x, y, value, handleClick}) => {
+const Node = ({id, x, y, value, handleClick}) => {
     return (
         <div /*onClick={(e) => handleClick(e, id)}*/
              className="vertice" 
              style={
                  {
-                     backgroundColor: "#700B97"
+                     backgroundColor: value ? "#679BF1" : "#1E2328"
                  }
             }
             >
@@ -14,4 +14,4 @@ const PathNode = ({id, x, y, value, handleClick}) => {
     )
 }
 
-export default PathNode;
+export default Node;

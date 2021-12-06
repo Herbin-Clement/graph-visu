@@ -11,7 +11,7 @@ export default class Graph {
 
     remove_vertice(v) {
         this.vertices.delete(v);
-        for (const [vertice, neighbors] of this.vertices.entries()) {
+        for (let [vertice, neighbors] of this.vertices.entries()) {
             neighbors = neighbors.filter((e) => e !== v);
             this.vertices.set(vertice, neighbors);
         }
@@ -71,7 +71,7 @@ export default class Graph {
     }
 
     getGraphRepresentation() {
-        const vertices = this.get_vertices();
+        // const vertices = this.get_vertices();
         const res = new Array(this.h).fill(new Array(this.w).fill(false));
         return res;
     }

@@ -34,7 +34,7 @@ const Dijkstra = (G, start_vertice, end_vertice) => {
                 distances.set(neighbor, dmin + 1);
                 prev[neighbor] = vmin;
                 display.push(neighbor);
-                if (neighbor == end_vertice) return {distances, prev, display};
+                if (neighbor === end_vertice) return {distances, prev, display};
             }
         }
     }

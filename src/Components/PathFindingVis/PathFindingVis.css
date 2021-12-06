@@ -1,0 +1,11 @@
+.visualisation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 94%;
+    width: 100%;
+}
+  
+.row {
+    display: flex;
+}

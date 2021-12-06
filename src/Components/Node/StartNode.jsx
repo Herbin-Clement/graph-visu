@@ -1,12 +1,13 @@
 import "./Node.css";
 
-const Node = ({id, x, y, value, handleClick}) => {
+const StartNode = ({id, x, y, value, handleClick}) => {
     return (
         <div /*onClick={(e) => handleClick(e, id)}*/
              className="vertice" 
              style={
                  {
-                     backgroundColor: value ? "#3E065F" : "#000000"
+                    backgroundColor: "#FFC40A",
+                    //  borderRadius: "74% 26% 70% 30% / 35% 76% 24% 65% "
                  }
             }
             >
@@ -14,4 +15,4 @@ const Node = ({id, x, y, value, handleClick}) => {
     )
 }
 
-export default Node;
+export default StartNode;
