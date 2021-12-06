@@ -23,7 +23,7 @@ const initialiseDistance = (start_vertice, vertices) => {
 
 const Dijkstra = (G, start_vertice, end_vertice) => {
     let vertices = G.get_vertices();
-    let prev = new Array(G.get_nb_vertice);
+    let prev = new Array(G.get_nb_vertice());
     let display = [];
     const distances = initialiseDistance(start_vertice, vertices);
     while (vertices.length !== 0) {
@@ -34,22 +34,11 @@ const Dijkstra = (G, start_vertice, end_vertice) => {
                 distances.set(neighbor, dmin + 1);
                 prev[neighbor] = vmin;
                 display.push(neighbor);
-                if (neighbor === end_vertice) return {distances, prev, display};
+                if (neighbor === end_vertice) return { prev, display };
             }
         }
     }
-    return { distances, prev, display };
+    return { prev, display };
 }
 
-const getPath = (prev, start, end) => {
-    const path = [];
-    let current_node = end;
-    while (current_node !== start) {
-        path.push(current_node);
-        current_node = prev[current_node];
-    }
-    path.push(current_node);
-    return path.reverse();
-}
-
-export { Dijkstra, getPath };
+export { Dijkstra };

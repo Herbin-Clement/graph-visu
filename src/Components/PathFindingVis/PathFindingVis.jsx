@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
-import { Dijkstra, getPath } from "../../lib/Dijkstra/Dijktra.js";
-import { createGridGraph, w, h, x_start_initial, x_end_initial, y_initial } from "../../lib/lib.js";
+import { Dijkstra } from "../../lib/Dijkstra/Dijktra.js";
+import { BreadthFirstSearch, DepthFirstSearch } from "../../lib/firstSearch/Search.js";
+import { createGridGraph, getPath, w, h, x_start_initial, x_end_initial, y_initial } from "../../lib/lib.js";
 import Node from "../Node/Node.jsx";
 import './PathFindingVis.css';
 
@@ -11,29 +12,30 @@ const PathFindingVis = ({ isVisualising, endVisualise }) => {
   const [startNode, setStartNode] = useState(x_start_initial + y_initial * w);
   const [endNode, setEndNode] = useState(x_end_initial + y_initial * w);
   const [graph, setGraph] = useState(createGridGraph(w, h));
-  const [data, setData] = useState(Dijkstra(graph, startNode, endNode));
+  const [data, setData] = useState(BreadthFirstSearch(graph, startNode, endNode));
   const [grid, setGrid] = useState(graph.getGraphRepresentation());
   const [click, setClick] = useState(0);
-  // const [toggle, setToggle] = useState(false);
+  const [speed, setSpeed] = useState(0);
+  console.log(data);
   
   useEffect(() => {
     if (didMount.current) {
       data.display.forEach((v, i) => {
         setTimeout(() => {
-          const el = document.getElementsByClassName(`id-${v}`)[0];
-          el.classList.add("visited-node");
-          el.classList.remove("not-visited-node");
-        }, i * 50);
+          const node = document.getElementsByClassName(`id-${v}`)[0];
+          node.classList.add("visited-node");
+          node.classList.remove("not-visited-node");
+        }, i * 10);
       });
       setTimeout(() => {
         getPath(data.prev, startNode, endNode).forEach((v, i) => {
           setTimeout(() => {
-            const el = document.getElementsByClassName(`id-${v}`)[0];
-            el.classList.remove("visited-node");
-            el.classList.add("path-node")
-          }, i * 50);
+            const node = document.getElementsByClassName(`id-${v}`)[0];
+            node.classList.remove("visited-node");
+            node.classList.add("path-node")
+          }, i * 10);
         });
-      }, data.display.length * 50);
+      }, data.display.length * 10);
     } else {
       didMount.current = true;
     }

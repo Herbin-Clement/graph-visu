@@ -25,6 +25,18 @@ const createGridGraph = (w, h) => {
     return graph;
 }
 
+
+const getPath = (prev, start, end) => {
+    const path = [];
+    let current_node = end;
+    while (current_node !== start) {
+        path.push(current_node);
+        current_node = prev[current_node];
+    }
+    path.push(current_node);
+    return path.reverse();
+}
+
 const D2toD1 = (x,y) => {
     return {id:x + y * w}
 }
@@ -33,4 +45,4 @@ const D1toD2 = (id) => {
     return {x: Math.floor(id / w), y: id % w}
 }
 
-export { createGridGraph, h , w, D2toD1, D1toD2, x_start_initial, x_end_initial, y_initial };
+export { createGridGraph, getPath, h , w, D2toD1, D1toD2, x_start_initial, x_end_initial, y_initial };
