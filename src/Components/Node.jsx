@@ -6,7 +6,7 @@ const Node = ({id, x, y, value, handleClick}) => {
              className="vertice" 
              style={
                  {
-                     backgroundColor: value ? "#121212" : "999999"
+                     backgroundColor: value ? "#3E065F" : "#000000"
                  }
             }
             >

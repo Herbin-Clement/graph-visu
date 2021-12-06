@@ -13,7 +13,7 @@ function App({ text, id }) {
 
   const didMount = useRef(false);
 
-  const [startNode, setStartNode] = useState(840);
+  const [startNode, setStartNode] = useState(955);
   const [endNode, setEndNode] = useState(973);
   const [graph, setGraph] = useState(createGridGraph(w, h));
   const [data, setData] = useState(Dijkstra(graph, startNode, endNode));
@@ -31,7 +31,11 @@ function App({ text, id }) {
         }, i * 50);
       });
       setTimeout(() => {
-        setPath(getPath(data.prev, startNode, endNode));
+        getPath(data.prev, startNode, endNode).forEach((v, i) => {
+          setTimeout(() => {
+            setPath(prevState => [...prevState, v]);
+          }, i * 50);
+        });
         console.log("da")
       }, data.display.length * 50);
     } else {

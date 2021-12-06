@@ -6,7 +6,8 @@ const StartNode = ({id, x, y, value, handleClick}) => {
              className="vertice" 
              style={
                  {
-                     backgroundColor: "green"
+                     backgroundColor: "#8E05C2",
+                     borderRadius: "74% 26% 70% 30% / 35% 76% 24% 65% "
                  }
             }
             >

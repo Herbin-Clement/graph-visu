@@ -6,7 +6,7 @@ const PathNode = ({id, x, y, value, handleClick}) => {
              className="vertice" 
              style={
                  {
-                     backgroundColor: "purple"
+                     backgroundColor: "#700B97"
                  }
             }
             >
