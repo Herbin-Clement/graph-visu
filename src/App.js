@@ -21,9 +21,9 @@ function App({ text, id }) {
   }
 
   return (
-    <div class="App">
-      <Header startVisualise={startVisualise}/>
-      <PathFindingVis isVisualising={isVisualising} endVisualise={endVisualise}/>
+    <div className="App">
+      <Header startVisualise={startVisualise} isVisualising={isVisualising}/>
+      <PathFindingVis endVisualise={endVisualise} isVisualising={isVisualising}/>
     </div>
   );
 }

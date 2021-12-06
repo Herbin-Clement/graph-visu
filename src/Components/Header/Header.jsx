@@ -1,9 +1,16 @@
 import './Header.css';
 
-const Header = ({ startVisualise }) => {
+const Header = ({ startVisualise, isVisualising }) => {
+
+    const handleClick = () => {
+        if (!isVisualising) {
+            startVisualise();
+        }
+    }
+
     return (
-        <div class="header">
-            <div onClick={() => startVisualise()} class="vis-button">
+        <div className="header">
+            <div onClick={() => handleClick()} className={`vis-button ${isVisualising ? "disabled" : ""}`}>
                 Visualise !
             </div>
         </div>

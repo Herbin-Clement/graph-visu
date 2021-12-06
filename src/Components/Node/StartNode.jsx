@@ -10,7 +10,7 @@ const StartNode = ({id, x, y, value}) => {
                  }
             }
             >
-                <div class="circle start"></div>
+                <div className="circle start"></div>
         </div>
     )
 }

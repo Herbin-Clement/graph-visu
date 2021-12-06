@@ -15,7 +15,7 @@ const PathFindingVis = ({ isVisualising, endVisualise }) => {
   const [startNode, setStartNode] = useState(x_start_initial + y_initial * w);
   const [endNode, setEndNode] = useState(x_end_initial + y_initial * w);
   const [graph, setGraph] = useState(createGridGraph(w, h));
-  const [data, setData] = useState({});
+  const [data, setData] = useState(Dijkstra(graph, startNode, endNode));
   const [path, setPath] = useState([]);
   const [grid, setGrid] = useState(graph.getGraphRepresentation());
   const [visited, setVisited] = useState([]);
@@ -23,7 +23,6 @@ const PathFindingVis = ({ isVisualising, endVisualise }) => {
   // const [toggle, setToggle] = useState(false);
   
   useEffect(() => {
-    console.log(data);
     if (didMount.current) {
       data.display.forEach((v, i) => {
         setTimeout(() => {
