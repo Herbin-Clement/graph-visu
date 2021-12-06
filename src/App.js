@@ -1,7 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import { Dijkstra, getPath } from "./lib/Dijkstra/Dijktra.js";
 import { createGridGraph, w, h } from "./lib/lib.js";
-import Vertice from "./Components/Vertice.jsx";
+import Node from "./Components/Node.jsx";
+import StartNode from "./Components/StartNode.jsx";
+import EndNode from "./Components/EndNode.jsx";
+import PathNode from "./Components/PathNode.jsx";
 
 import './App.css';
 
@@ -10,12 +13,11 @@ function App({ text, id }) {
 
   const didMount = useRef(false);
 
-
-  const [startNode, setStartNode] = useState(322);
+  const [startNode, setStartNode] = useState(840);
   const [endNode, setEndNode] = useState(973);
   const [graph, setGraph] = useState(createGridGraph(w, h));
   const [data, setData] = useState(Dijkstra(graph, startNode, endNode));
-  const [path, setPath] = useState(getPath(data.prev, startNode, endNode));  
+  const [path, setPath] = useState([]);
   const [grid, setGrid] = useState(graph.getGraphRepresentation());
   const [visited, setVisited] = useState([]);
   const [toggle, setToggle] = useState(false);
@@ -26,9 +28,12 @@ function App({ text, id }) {
       data.display.forEach((v, i) => {
         setTimeout(() => {
           setVisited(prevState => [...prevState, v]);
-          console.log(visited);
         }, i * 50);
       });
+      setTimeout(() => {
+        setPath(getPath(data.prev, startNode, endNode));
+        console.log("da")
+      }, data.display.length * 50);
     } else {
       didMount.current = true;
     }
@@ -48,7 +53,7 @@ function App({ text, id }) {
 
   return (
     <div className="App">
-      <button onClick={() => setToggle(prevState => !prevState)}> adaz</button>
+      <button onClick={() => setToggle(prevState => !prevState)}>adaz</button>
         <div className="grid">
           {grid.map((row, y) => {
             return (
@@ -56,18 +61,18 @@ function App({ text, id }) {
                 {row.map((cell, x) => {
                   const id = w * y + x;
                   if (visited.includes(id)) cell = true;
-                  return (
-                    <Vertice 
-                      key={id}
-                      id={id} 
-                      y={y} 
-                      x={x} 
-                      value={cell} 
-                      // handleClick={handleClick}
-                      isStartNode={startNode == id}
-                      isEndNode={endNode == id}
-                      />
-                  );
+                  const props = {
+                    key:id,
+                    id:id, 
+                    y:y,
+                    x:x,
+                    value:cell,
+                    // handleClick={handleClick}
+                  }
+                  if (id === startNode) return <StartNode {...props}/>
+                  else if (id === endNode) return <EndNode {...props}/>
+                  else if (path.includes(id)) return <PathNode {...props}/>
+                  else return <Node {...props}/>
                 })}
               </div>
             );
