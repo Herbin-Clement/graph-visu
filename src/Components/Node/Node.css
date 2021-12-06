@@ -3,7 +3,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
     width: 3.2vh;
     height: 3.2vh;
     padding: 0;
@@ -28,6 +27,18 @@
 
 .end {
     border-radius: 51% 49% 44% 56% / 79% 85% 15% 21%;
+}
+
+.visited-node {
+    background-color: #679BF1;
+}
+
+.not-visited-node {
+    background-color: #1E2328;
+}
+
+.path-node {
+    background-color: #F8DE7E;
 }
 
 .subcircle {

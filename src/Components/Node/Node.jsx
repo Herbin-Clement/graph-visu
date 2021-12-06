@@ -1,15 +1,15 @@
 import "./Node.css";
 
-const Node = ({id, x, y, value, handleClick}) => {
+const Node = ({id, handleClick, isStart, isEnd}) => {
     return (
         <div onClick={() => handleClick(id)}
-             className="vertice" 
-             style={
-                 {
-                     backgroundColor: value ? "#679BF1" : "#1E2328"
-                 }
-            }
+             className={`id-${id} vertice not-visited-node`}
+             style={{
+                 backgroundColor: isStart || isEnd ? "#FFC40A" : ""
+             }}
             >
+                {isStart && <div className="circle start"></div>}
+                {isEnd && <div className="circle end"></div>}
         </div>
     )
 }
