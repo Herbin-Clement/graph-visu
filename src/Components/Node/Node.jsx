@@ -1,6 +1,7 @@
 import "./Node.css";
 
 const Node = ({id, handleClick, isStart, isEnd}) => {
+
     return (
         <div onClick={() => handleClick(id)}
              className={`id-${id} vertice not-visited-node`}

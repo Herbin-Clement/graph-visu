@@ -1,17 +1,24 @@
 import './Header.css';
 
-const Header = ({ startVisualise, isVisualising }) => {
+const Header = ({ startVisualise, isVisualising, isWallMode, toggleWallMode }) => {
 
-    const handleClick = () => {
+    const handleClickVisualise = () => {
         if (!isVisualising) {
             startVisualise();
         }
     }
 
+    const handleClickWall = () => {
+        toggleWallMode(!isWallMode);
+    }
+
     return (
         <div className="header">
-            <div onClick={() => handleClick()} className={`vis-button ${isVisualising ? "disabled" : ""}`}>
+            <div onClick={() => handleClickVisualise()} className={`vis-button ${isVisualising ? "disabled" : ""}`}>
                 Visualise !
+            </div>
+            <div onClick={() => handleClickWall()} className={`vis-button`}>
+                {isWallMode ? "Wall" : "Start/End"}
             </div>
         </div>
     );

@@ -5,27 +5,26 @@ import { createGridGraph, getPath, w, h, x_start_initial, x_end_initial, y_initi
 import Node from "../Node/Node.jsx";
 import './PathFindingVis.css';
 
-const PathFindingVis = ({ isVisualising, endVisualise }) => {
+const PathFindingVis = ({ isVisualising, endVisualise, isWallMode }) => {
 
   const didMount = useRef(false);
 
   const [startNode, setStartNode] = useState(x_start_initial + y_initial * w);
   const [endNode, setEndNode] = useState(x_end_initial + y_initial * w);
   const [graph, setGraph] = useState(createGridGraph(w, h));
-  const [data, setData] = useState(BreadthFirstSearch(graph, startNode, endNode));
   const [grid, setGrid] = useState(graph.getGraphRepresentation());
   const [click, setClick] = useState(0);
-  const [speed, setSpeed] = useState(0);
-  console.log(data);
+  const [speed, setSpeed] = useState(5);
   
   useEffect(() => {
+    const data = Dijkstra(graph, startNode, endNode);
     if (didMount.current) {
       data.display.forEach((v, i) => {
         setTimeout(() => {
           const node = document.getElementsByClassName(`id-${v}`)[0];
           node.classList.add("visited-node");
           node.classList.remove("not-visited-node");
-        }, i * 10);
+        }, i * speed);
       });
       setTimeout(() => {
         getPath(data.prev, startNode, endNode).forEach((v, i) => {
@@ -33,23 +32,44 @@ const PathFindingVis = ({ isVisualising, endVisualise }) => {
             const node = document.getElementsByClassName(`id-${v}`)[0];
             node.classList.remove("visited-node");
             node.classList.add("path-node")
-          }, i * 10);
+          }, i * speed);
         });
-      }, data.display.length * 10);
+      }, data.display.length * speed);
     } else {
       didMount.current = true;
     }
   }, [isVisualising]);
 
   const handleClick = (id) => {
-    setClick(prevState => prevState + 1);
-    if (click % 2 === 0){
-      setStartNode(id);
-      setData(Dijkstra(graph, id, endNode));
+    console.log(`isWallMode ? ${isWallMode}`);
+    if (isWallMode) {
+      toggleNode(id);
     } else {
-      setEndNode(id);
-      setData(Dijkstra(graph, startNode, id));
+      setClick(prevState => prevState + 1);
+      if (click % 2 === 0){
+        setStartNode(id);
+        // setData(Dijkstra(graph, id, endNode));
+      } else {
+        setEndNode(id);
+        // setData(Dijkstra(graph, startNode, id));
+      }
     }
+  }
+
+  const toggleNode = (id) => {
+    setGraph(prevState => {
+      prevState.toggle_vertice(id);
+      return prevState;
+    });
+    const node = document.getElementsByClassName(`id-${id}`)[0];
+    node.classList.toggle("wall");
+    console.log(node);
+    // setGrid(prevGrid => {
+    //   const x = id % h;
+    //   const y = Math.floor(id / h);
+    //   prevGrid[y][x] = true;
+    //   return prevGrid;
+    // });
   }
 
   return (
@@ -66,10 +86,9 @@ const PathFindingVis = ({ isVisualising, endVisualise }) => {
                     id:id, 
                     y:y,
                     x:x,
-                    value:cell,
                     handleClick:handleClick,
                     isStart: id === startNode,
-                    isEnd: id === endNode
+                    isEnd: id === endNode,
                   }
                   return <Node {...props}/>
                 })}
