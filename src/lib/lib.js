@@ -15,8 +15,10 @@ const createGridGraph = (w, h) => {
         for (let j = 0; j < w; j++) {
             const {id} = D2toD1(j, i);
             if (i < h - 1 && j < w - 1) { // Toute les cases sauf derniere ligne et derniere colonne
+                console.log(id);
                 graph.add_edges(id, id + 1)
                 graph.add_edges(id, id + w);
+                console.log(id, graph.neighbors(id));
             } else if (i < h - 1 && j === w - 1) { // Derniere colonne
                 graph.add_edges(id, id + w);
             } else if (i === h - 1 && j < w - 1) { // derniere ligne

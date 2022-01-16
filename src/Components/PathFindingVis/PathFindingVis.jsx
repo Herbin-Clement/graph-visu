@@ -7,6 +7,14 @@ import './PathFindingVis.css';
 
 const PathFindingVis = ({ isVisualising, endVisualise, isWallMode }) => {
 
+  const pathFinding = [{
+    name: "Dijkstra", algo: Dijkstra
+  }, {
+    name: "BreadthFirstSearch", algo: BreadthFirstSearch
+  }, {
+    name: "DepthFirstSearch", algo: DepthFirstSearch
+  }];
+
   const didMount = useRef(false);
 
   const [startNode, setStartNode] = useState(x_start_initial + y_initial * w);
@@ -15,9 +23,10 @@ const PathFindingVis = ({ isVisualising, endVisualise, isWallMode }) => {
   const [grid, setGrid] = useState(graph.getGraphRepresentation());
   const [click, setClick] = useState(0);
   const [speed, setSpeed] = useState(5);
+  const [idCurrAlgo, setIdCurrAlgo] = useState(0);
   
   useEffect(() => {
-    const data = Dijkstra(graph, startNode, endNode);
+    const data = pathFinding[idCurrAlgo].algo(graph, startNode, endNode);
     if (didMount.current) {
       data.display.forEach((v, i) => {
         setTimeout(() => {

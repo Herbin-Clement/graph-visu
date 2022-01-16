@@ -1,5 +1,6 @@
 import './Header.css';
 
+
 const Header = ({ startVisualise, isVisualising, isWallMode, toggleWallMode }) => {
 
     const handleClickVisualise = () => {
@@ -18,7 +19,7 @@ const Header = ({ startVisualise, isVisualising, isWallMode, toggleWallMode }) =
                 Visualise !
             </div>
             <div onClick={() => handleClickWall()} className={`vis-button`}>
-                {isWallMode ? "Wall" : "Start/End"}
+                {isWallMode ? "Wall Mod" : "Start-End Mod"}
             </div>
         </div>
     );

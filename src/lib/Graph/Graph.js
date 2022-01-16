@@ -34,7 +34,7 @@ export default class Graph {
     }
 
     add_edges(u, v) {
-        if (u < this.nb_node && u > 0 && v < this.nb_node && v > 0) {
+        if (u < this.nb_node && u >= 0 && v < this.nb_node && v >= 0) {
             if (!this.is_vertice(u)) this.add_vertice(u)
             if (!this.is_vertice(v)) this.add_vertice(v)
             const tmp_u = this.vertices.get(u);
@@ -85,6 +85,7 @@ export default class Graph {
     }
 
     getGraphRepresentation() {
+        console.log(this.neighbors(0));
         const res = new Array(this.h).fill(0).map(() => new Array(this.w).fill(false));
         return res;
     }
