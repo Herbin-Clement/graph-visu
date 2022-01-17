@@ -10,6 +10,7 @@ function App({ text, id }) {
 
   const [isVisualising, setIsVisualising] = useState(false);
   const [isWallMode, setIsWallMode] = useState(true);
+  const [idCurrAlgoPath, setIdCurrAlgoPath] = useState(0);
 
   const startVisualise = () => {
     setIsVisualising(true);
@@ -23,10 +24,22 @@ function App({ text, id }) {
     setIsWallMode(newValue);
   }
 
+  const handlePathFindingClick = () => {
+    setIdCurrAlgoPath(prevState => prevState + 1);
+    console.log(idCurrAlgoPath);
+  }
+
   return (
     <div className="App">
-      <Header startVisualise={startVisualise} isVisualising={isVisualising} isWallMode={isWallMode} toggleWallMode={toggleWallMode}/>
-      <PathFindingVis endVisualise={endVisualise} isVisualising={isVisualising} isWallMode={isWallMode}/>
+      <Header startVisualise={startVisualise} 
+              isVisualising={isVisualising} 
+              isWallMode={isWallMode} 
+              toggleWallMode={toggleWallMode} 
+              handlePathFindingClick={handlePathFindingClick}/>
+      <PathFindingVis endVisualise={endVisualise} 
+                      isVisualising={isVisualising} 
+                      isWallMode={isWallMode} 
+                      idCurrAlgoPath={idCurrAlgoPath}/>
     </div>
   );
 }

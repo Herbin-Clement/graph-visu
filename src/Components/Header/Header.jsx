@@ -1,7 +1,7 @@
 import './Header.css';
 
 
-const Header = ({ startVisualise, isVisualising, isWallMode, toggleWallMode }) => {
+const Header = ({ startVisualise, isVisualising, isWallMode, toggleWallMode, handlePathFindingClick }) => {
 
     const handleClickVisualise = () => {
         if (!isVisualising) {
@@ -15,11 +15,14 @@ const Header = ({ startVisualise, isVisualising, isWallMode, toggleWallMode }) =
 
     return (
         <div className="header">
+            <div onClick={() => handleClickWall()} className={`vis-button`}>
+                {isWallMode ? "Wall Mod" : "Start-End Mod"}
+            </div>
             <div onClick={() => handleClickVisualise()} className={`vis-button ${isVisualising ? "disabled" : ""}`}>
                 Visualise !
             </div>
-            <div onClick={() => handleClickWall()} className={`vis-button`}>
-                {isWallMode ? "Wall Mod" : "Start-End Mod"}
+            <div onClick={() => handlePathFindingClick()} className={`vis-button`}>
+                Change path finding algorithm !
             </div>
         </div>
     );

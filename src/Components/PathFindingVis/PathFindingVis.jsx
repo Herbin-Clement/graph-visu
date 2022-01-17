@@ -5,7 +5,7 @@ import { createGridGraph, getPath, w, h, x_start_initial, x_end_initial, y_initi
 import Node from "../Node/Node.jsx";
 import './PathFindingVis.css';
 
-const PathFindingVis = ({ isVisualising, endVisualise, isWallMode }) => {
+const PathFindingVis = ({ isVisualising, endVisualise, isWallMode, idCurrAlgoPath }) => {
 
   const pathFinding = [{
     name: "Dijkstra", algo: Dijkstra
@@ -23,10 +23,10 @@ const PathFindingVis = ({ isVisualising, endVisualise, isWallMode }) => {
   const [grid, setGrid] = useState(graph.getGraphRepresentation());
   const [click, setClick] = useState(0);
   const [speed, setSpeed] = useState(5);
-  const [idCurrAlgo, setIdCurrAlgo] = useState(0);
   
   useEffect(() => {
-    const data = pathFinding[idCurrAlgo].algo(graph, startNode, endNode);
+    console.log(idCurrAlgoPath % pathFinding.length);
+    const data = pathFinding[idCurrAlgoPath % pathFinding.length].algo(graph, startNode, endNode);
     if (didMount.current) {
       data.display.forEach((v, i) => {
         setTimeout(() => {
@@ -50,7 +50,7 @@ const PathFindingVis = ({ isVisualising, endVisualise, isWallMode }) => {
   }, [isVisualising]);
 
   const handleClick = (id) => {
-    console.log(`isWallMode ? ${isWallMode}`);
+    // console.log(`isWallMode ? ${isWallMode}`);
     if (isWallMode) {
       toggleNode(id);
     } else {
@@ -72,7 +72,6 @@ const PathFindingVis = ({ isVisualising, endVisualise, isWallMode }) => {
     });
     const node = document.getElementsByClassName(`id-${id}`)[0];
     node.classList.toggle("wall");
-    console.log(node);
     // setGrid(prevGrid => {
     //   const x = id % h;
     //   const y = Math.floor(id / h);
@@ -83,13 +82,13 @@ const PathFindingVis = ({ isVisualising, endVisualise, isWallMode }) => {
 
   return (
     <div className="visualisation">
+        <div className="title">{pathFinding[idCurrAlgoPath % pathFinding.length].name}</div>
         <div className="grid">
           {grid.map((row, y) => {
             return (
               <div key={y} className="row">
                 {row.map((cell, x) => {
                   const id = w * y + x;
-                  console.log("yo");
                   const props = {
                     key:id,
                     id:id, 
