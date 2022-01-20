@@ -11,12 +11,13 @@ export default class Graph {
     }
 
     remove_vertice(v) {
+        console.log(`current_vertice_id = ${v}`, v);
         this.vertices.delete(v);
         for (let [vertice, neighbors] of this.vertices.entries()) {
             neighbors = neighbors.filter((e) => e !== v);
             this.vertices.set(vertice, neighbors);
         }
-        console.log(this.get_nb_vertice());
+        // console.log(this.get_nb_vertice());
     }
 
     toggle_vertice(v) {

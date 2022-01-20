@@ -22,6 +22,7 @@ const initialiseDistance = (start_vertice, vertices) => {
 }
 
 const Dijkstra = (G, start_vertice, end_vertice) => {
+    console.log(G.neighbors());
     let vertices = G.get_vertices();
     let prev = new Array(G.get_nb_vertice());
     let display = [];
