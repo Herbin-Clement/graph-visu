@@ -28,7 +28,7 @@ const PathFindingVis = ({ isVisualising, endVisualise, isWallMode, idCurrAlgoPat
 
   useEffect(() => {
     console.log(idCurrAlgoPath % pathFinding.length);
-    const wall = divide(graph, 0, 0, 15, 15, 0, 3);
+    const wall = divide(graph, 0, 0, w, h, 0, 2);
     console.log(wall);
     wall.forEach(id => {
       const node = document.getElementsByClassName(`id-${id}`)[0];
@@ -103,8 +103,8 @@ const PathFindingVis = ({ isVisualising, endVisualise, isWallMode, idCurrAlgoPat
                     y:y,
                     x:x,
                     handleClick:handleClick,
-                    isStart: id === startNode,
-                    isEnd: id === endNode,
+                    // isStart: id === startNode,
+                    // isEnd: id === endNode,
                   }
                   return <Node {...props}/>
                 })}

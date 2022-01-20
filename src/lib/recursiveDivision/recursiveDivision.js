@@ -17,22 +17,23 @@ const choose_orientation = (width, height) => {
 
 const divide = (graph, x, y, width, height, orientation, tmp) => {
     if (width < 2 || height < 2 || tmp === 0) return new Array(0);
+    console.log(`x: ${x}, y: ${y}, width: ${width}, height: ${height}`)
 
     const horizontal = orientation === HORIZONTAL;
 
-    let wall_x = x + (horizontal ? 0 : Math.floor(Math.random() * (width - 2)));
-    let wall_y = y + (horizontal ? Math.floor(Math.random() * (height - 2)) : 0);
-
+    let wall_x = x + (horizontal ? 0 : 1 + Math.floor(Math.random() * (width - 2)));
+    let wall_y = y + (horizontal ? 1 + Math.floor(Math.random() * (height - 2)) : 0);
     const hole_x = wall_x + (horizontal ? Math.floor(Math.random() * width) : 0);
     const hole_y = wall_y + (horizontal ? 0 : Math.floor(Math.random() * height));
-
     const dx = horizontal ? 1 : 0;
     const dy = horizontal ? 0 : 1;
-
-    const length = horizontal ? width : height;
-
-    // const dir = horizontal ? SUD : EAST;
     
+    const length = horizontal ? width : height;
+    
+    // const dir = horizontal ? SUD : EAST;
+
+    console.log(`w(${wall_x}, ${wall_y}), length = ${length}`);
+    console.log(`hole(${hole_x}, ${hole_y})`);
     let wall = [];
 
     for (let i = 0; i < length; i++) {

@@ -11,7 +11,6 @@ export default class Graph {
     }
 
     remove_vertice(v) {
-        console.log(`current_vertice_id = ${v}`, v);
         this.vertices.delete(v);
         for (let [vertice, neighbors] of this.vertices.entries()) {
             neighbors = neighbors.filter((e) => e !== v);
