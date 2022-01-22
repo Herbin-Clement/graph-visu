@@ -86,9 +86,8 @@ const PathFindingVis = ({ isVisualising, endVisualise, isWallMode, idCurrAlgoPat
     // });
   }
 
-  const tmp = () => {
+  const addWall = () => {
     clearGrid();
-    console.log("yo");
     const wall = randomWall(w, h, startNode, endNode);
     console.log(wall);
     let i = 0;
@@ -111,7 +110,7 @@ const PathFindingVis = ({ isVisualising, endVisualise, isWallMode, idCurrAlgoPat
 
   return (
     <div className="visualisation">
-        <div className="title" onClick={() => tmp()}>{pathFinding[idCurrAlgoPath % pathFinding.length].name}</div>
+        <div className="title" onClick={() => addWall()}>{pathFinding[idCurrAlgoPath % pathFinding.length].name}</div>
         <div className="grid">
           {grid.map((row, y) => {
             return (
