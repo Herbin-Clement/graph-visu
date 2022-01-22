@@ -11,7 +11,7 @@ const BreadthFirstSearch = (G, start_vertice, end_vertice) => {
         if (!already_visited[current_node]) {
             display.push(current_node);
             res.push(current_node);
-            if (current_node === end_vertice) return { prev, display };   
+            if (current_node === end_vertice) return { prev, display, found: true };   
             already_visited[current_node] = true;
             const neighbors = G.neighbors(current_node);
             for (const n of neighbors) {
@@ -22,7 +22,7 @@ const BreadthFirstSearch = (G, start_vertice, end_vertice) => {
             };
         }
     }
-    return { prev, display };
+    return { prev, display, found: false };
 }
 
 const DepthFirstSearch = (G, start_vertice, end_vertice) => {
@@ -38,7 +38,7 @@ const DepthFirstSearch = (G, start_vertice, end_vertice) => {
         if (!already_visited[current_node]) {
             display.push(current_node);
             res.push(current_node);
-            if (current_node === end_vertice) return { prev, display };   
+            if (current_node === end_vertice) return { prev, display, found: true };   
             already_visited[current_node] = true;
             const neighbors = G.neighbors(current_node);
             for (const n of neighbors) {
@@ -49,7 +49,7 @@ const DepthFirstSearch = (G, start_vertice, end_vertice) => {
             };
         }
     }
-    return { prev, display };   
+    return { prev, display, found: false };   
 }
 
 export { BreadthFirstSearch, DepthFirstSearch };

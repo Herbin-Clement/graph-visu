@@ -1,7 +1,7 @@
 import Graph from "./Graph/Graph.js";
 
-const w = 30;
-const h = 20;
+const w = 58;
+const h = 27;
 // const w = 58;
 // const h = 27;
 

@@ -39,15 +39,17 @@ const PathFindingVis = ({ isVisualising, endVisualise, isWallMode, idCurrAlgoPat
           node.classList.remove("not-visited-node");
         }, i * speed);
       });
-      setTimeout(() => {
-        getPath(data.prev, startNode, endNode).forEach((v, i) => {
-          setTimeout(() => {
-            const node = document.getElementsByClassName(`id-${v}`)[0];
-            node.classList.remove("visited-node");
-            node.classList.add("path-node")
-          }, i * speed);
-        });
-      }, data.display.length * speed);
+      if (data.found) {
+        setTimeout(() => {
+          getPath(data.prev, startNode, endNode).forEach((v, i) => {
+            setTimeout(() => {
+              const node = document.getElementsByClassName(`id-${v}`)[0];
+              node.classList.remove("visited-node");
+              node.classList.add("path-node")
+            }, i * speed);
+          });
+        }, data.display.length * speed);
+      }
     } else {
       didMount.current = true;
     }

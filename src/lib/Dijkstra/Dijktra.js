@@ -22,23 +22,27 @@ const initialiseDistance = (start_vertice, vertices) => {
 }
 
 const Dijkstra = (G, start_vertice, end_vertice) => {
+    console.log("yo");
     let vertices = G.get_vertices();
     let prev = new Array(G.get_nb_vertice());
     let display = [];
     const distances = initialiseDistance(start_vertice, vertices);
-    while (vertices.length !== 0) {
+    let i = 0;
+    while (vertices.length !== 0 && i < 5) {
         const {vmin, dmin, tmp} = extractMinValue(distances, vertices);
         vertices = tmp;
+        if (dmin === Infinity) break;
         for (const neighbor of G.neighbors(vmin)) {
             if (distances.get(neighbor) > dmin + 1) {
                 distances.set(neighbor, dmin + 1);
                 prev[neighbor] = vmin;
                 display.push(neighbor);
-                if (neighbor === end_vertice) return { prev, display };
+                if (neighbor === end_vertice) return { prev, display, found: true };
             }
         }
     }
-    return { prev, display };
+    console.log("yo");
+    return { prev, display, found: false };
 }
 
 export { Dijkstra };
