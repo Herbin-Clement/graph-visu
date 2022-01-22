@@ -8,5 +8,4 @@ body, html, #root, .App {
 
 .App {
   display: flex;
-  flex-direction: column;
 }
