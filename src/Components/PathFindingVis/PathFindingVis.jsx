@@ -2,7 +2,8 @@ import { useEffect, useState, useRef } from "react";
 import { Dijkstra } from "../../lib/Dijkstra/Dijktra.js";
 import { BreadthFirstSearch, DepthFirstSearch } from "../../lib/firstSearch/Search.js";
 import { createGridGraph, getPath, w, h, x_start_initial, x_end_initial, y_initial } from "../../lib/lib.js";
-import  { divide } from '../../lib/recursiveDivision/recursiveDivision.js';
+import  { divide } from '../../lib/maze/recursiveDivision.js';
+import { randomWall } from '../../lib/maze/randomWall.js';
 import Node from "../Node/Node.jsx";
 import './PathFindingVis.css';
 
@@ -28,33 +29,28 @@ const PathFindingVis = ({ isVisualising, endVisualise, isWallMode, idCurrAlgoPat
 
   useEffect(() => {
     console.log(idCurrAlgoPath % pathFinding.length);
-    const wall = divide(graph, 0, 0, w, h, 0, 2);
-    console.log(wall);
-    wall.forEach(id => {
-      const node = document.getElementsByClassName(`id-${id}`)[0];
-      node.classList.toggle("wall");
-    });
-    // const data = pathFinding[idCurrAlgoPath % pathFinding.length].algo(graph, startNode, endNode);
-    // if (didMount.current) {
-    //   data.display.forEach((v, i) => {
-    //     setTimeout(() => {
-    //       const node = document.getElementsByClassName(`id-${v}`)[0];
-    //       node.classList.add("visited-node");
-    //       node.classList.remove("not-visited-node");
-    //     }, i * speed);
-    //   });
-    //   setTimeout(() => {
-    //     getPath(data.prev, startNode, endNode).forEach((v, i) => {
-    //       setTimeout(() => {
-    //         const node = document.getElementsByClassName(`id-${v}`)[0];
-    //         node.classList.remove("visited-node");
-    //         node.classList.add("path-node")
-    //       }, i * speed);
-    //     });
-    //   }, data.display.length * speed);
-    // } else {
-    //   didMount.current = true;
-    // }
+    // const wall = divide(graph, 0, 0, w, h, 0, 2);
+    const data = pathFinding[idCurrAlgoPath % pathFinding.length].algo(graph, startNode, endNode);
+    if (didMount.current) {
+      data.display.forEach((v, i) => {
+        setTimeout(() => {
+          const node = document.getElementsByClassName(`id-${v}`)[0];
+          node.classList.add("visited-node");
+          node.classList.remove("not-visited-node");
+        }, i * speed);
+      });
+      setTimeout(() => {
+        getPath(data.prev, startNode, endNode).forEach((v, i) => {
+          setTimeout(() => {
+            const node = document.getElementsByClassName(`id-${v}`)[0];
+            node.classList.remove("visited-node");
+            node.classList.add("path-node")
+          }, i * speed);
+        });
+      }, data.display.length * speed);
+    } else {
+      didMount.current = true;
+    }
   }, [isVisualising]);
 
   const handleClick = (id) => {
@@ -88,9 +84,32 @@ const PathFindingVis = ({ isVisualising, endVisualise, isWallMode, idCurrAlgoPat
     // });
   }
 
+  const tmp = () => {
+    clearGrid();
+    console.log("yo");
+    const wall = randomWall(w, h, startNode, endNode);
+    console.log(wall);
+    let i = 0;
+    wall.forEach(id => {
+      setTimeout(() => {
+        toggleNode(id);
+      }, i * 10);
+      i++;
+    });
+  }
+
+  const clearGrid = () => {
+    setGraph(() => createGridGraph(w, h));
+    setGrid(() => graph.getGraphRepresentation());
+    for (let i = 0; i < w * h; i++) {
+      const div = document.getElementsByClassName(`id-${i}`)[0];
+      div.classList.remove("wall");
+    }
+  }
+
   return (
     <div className="visualisation">
-        <div className="title">{pathFinding[idCurrAlgoPath % pathFinding.length].name}</div>
+        <div className="title" onClick={() => tmp()}>{pathFinding[idCurrAlgoPath % pathFinding.length].name}</div>
         <div className="grid">
           {grid.map((row, y) => {
             return (
@@ -103,8 +122,8 @@ const PathFindingVis = ({ isVisualising, endVisualise, isWallMode, idCurrAlgoPat
                     y:y,
                     x:x,
                     handleClick:handleClick,
-                    // isStart: id === startNode,
-                    // isEnd: id === endNode,
+                    isStart: id === startNode,
+                    isEnd: id === endNode,
                   }
                   return <Node {...props}/>
                 })}

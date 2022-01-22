@@ -2,8 +2,6 @@ import { D2toD1 } from '../lib.js';
 
 const HORIZONTAL = 0;
 const VERTICAL = 1;
-const SUD = 0;
-const EAST = 1;
 
 const choose_orientation = (width, height) => {
     if (width < height) {

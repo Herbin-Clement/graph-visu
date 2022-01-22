@@ -1,7 +1,7 @@
 import Graph from "./Graph/Graph.js";
 
-const w = 5;
-const h = 5;
+const w = 30;
+const h = 20;
 // const w = 58;
 // const h = 27;
 
@@ -46,7 +46,7 @@ const D2toD1 = (x,y) => {
 }
 
 const D1toD2 = (id) => {
-    return {x: Math.floor(id / w), y: id % w}
+    return {y: Math.floor(id / w), x: id % w}
 }
 
 export { createGridGraph, getPath, h , w, D2toD1, D1toD2, x_start_initial, x_end_initial, y_initial };

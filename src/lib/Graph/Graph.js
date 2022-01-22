@@ -1,3 +1,5 @@
+import { D1toD2 } from "../lib";
+
 export default class Graph {
     constructor(w, h) {
         this.vertices = new Map();
@@ -20,12 +22,40 @@ export default class Graph {
     }
 
     toggle_vertice(v) {
+        const {x, y} = D1toD2(v);
+        console.log(`id:${v}, x:${x}, y:${y}, w:${this.w}, h:${this.h} `);
         if (this.vertices.has(v)) {
             this.remove_vertice(v);
         } else {
-            [v + 1, v - 1, v + this.w, v - this.w].forEach(u => {
-                if (this.is_vertice(u)) this.add_edges(v, u);
+            const neighbors = [];
+            if (x !== this.w - 1) {
+                if (this.vertices.has(v + 1)) {
+                    neighbors.push(v + 1);
+                    console.log(v+1);
+                }
+            }
+            if (x !== 0) {
+                if (this.vertices.has(v - 1)) {
+                    neighbors.push(v - 1);
+                    console.log(v-1);
+                }
+            }
+            if (y !== this.h - 1) {
+                if (this.vertices.has(v + this.w)) {
+                    neighbors.push(v + this.w); 
+                    console.log(v+this.w);
+                }
+            }
+            if (y !== 0) {
+                if (this.vertices.has(v - this.w)) {
+                    neighbors.push(v - this.w);
+                    console.log(v-this.w);
+                }
+            }
+            neighbors.forEach(u => {
+                if (this.is_vertice(u) && u > 0 && u < this.w * this.h) this.add_edges(v, u);
             });
+
         }
     }
 
@@ -56,7 +86,9 @@ export default class Graph {
     }
 
     neighbors(id) {
-        return this.vertices.get(id);
+        const res = this.vertices.get(id);
+        if (res === undefined) return [];
+        return res;
     }
 
     get_nb_vertice() {
