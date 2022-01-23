@@ -16,3 +16,9 @@
     color: #FED053;
     font-size: larger;
 }
+
+.button {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}

@@ -1,17 +1,7 @@
 import './Header.css';
 
 
-const Header = ({ startVisualise, isVisualising, isWallMode, toggleWallMode, handlePathFindingClick }) => {
-
-    const handleClickVisualise = () => {
-        if (!isVisualising) {
-            startVisualise();
-        }
-    }
-
-    const handleClickWall = () => {
-        toggleWallMode(!isWallMode);
-    }
+const Header = ({ isVisualising, handleMazePatternsClick, handleModClick, handleAlgorithmCLick }) => {
 
     return (
         <div className="header">
@@ -24,12 +14,16 @@ const Header = ({ startVisualise, isVisualising, isWallMode, toggleWallMode, han
             <div onClick={() => handlePathFindingClick()} className={`vis-button`}>
                 Change path finding algorithm !
             </div> */}
-            <div className="">
-
+            <div className="menu">
+                <div className="title">Mod</div>
+                <div className="itemList">
+                    <div>Wall Mod</div>
+                    <div>Start & End Mod</div>
+                </div>
             </div>
             <div className="menu">
                 <div className="title">Algorithm</div>
-                <div className="list">
+                <div className="itemList">
                     <div>Dijkstra</div>
                     <div>BreathFindingAlgorithm</div>
                     <div>DepthFindingAlgorithm</div>
@@ -37,7 +31,7 @@ const Header = ({ startVisualise, isVisualising, isWallMode, toggleWallMode, han
             </div>
             <div className="menu">
                 <div className="title">Maze & Patterns</div>
-                <div className="list">
+                <div className="itemList">
                     <div>Random Wall</div>
                     <div>Recursive Division</div>
                 </div>
