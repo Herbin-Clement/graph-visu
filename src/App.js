@@ -20,12 +20,12 @@ function App() {
   }];
 
   const mazePattern = [{
-    name: "Random", algo: randomWall 
+    name: "Random", algo: randomWall
   }]
 
   const [isVisualising, setIsVisualising] = useState(false);
   const [isWallMode, setIsWallMode] = useState(false);
-  const [currentAlgo, setCurrentAlgo] = useState(pathFinding[2]);
+  const [currentAlgo, setCurrentAlgo] = useState(pathFinding[0]);
   const [mazePatternAlgo, setMazePatternAlgo] = useState(mazePattern[0]);
 
 
@@ -45,39 +45,34 @@ function App() {
     setIsWallMode(newValue);
   }
 
-
-  const handleMazePatternsClick = (mazePattern) => {
-      setMazePatternAlgo(mazePattern[0]);
+  const handleMazePatternsClick = (id) => {
+    setMazePatternAlgo(mazePattern[0]);
   }
 
   const handleModClick = (mod) => {
-      setIsWallMode(mod);
+    setIsWallMode(mod);
   }
 
-  const handleAlgorithmClick = (algorithm) => {
-    let algo = null;
-    pathFinding.forEach(e => {
-      if (e.name === algorithm) algo = e;
-    });
-    setCurrentAlgo(() => algo);
+  const handleAlgorithmClick = (id) => {
+    setCurrentAlgo(pathFinding[id]);
   }
 
   return (
     <div className="App">
-      <Header isVisualising={isVisualising} 
-              handleAlgorithmClick={handleAlgorithmClick}
-              handleModClick={handleModClick}
-              handleMazePatternsClick={handleMazePatternsClick}
-              isWallMode={isWallMode} 
-              toggleWallMode={toggleWallMode}
-              />
+      <Header isVisualising={isVisualising}
+        handleAlgorithmClick={handleAlgorithmClick}
+        handleModClick={handleModClick}
+        handleMazePatternsClick={handleMazePatternsClick}
+        isWallMode={isWallMode}
+        toggleWallMode={toggleWallMode}
+      />
       <PathFindingVis startVisualise={startVisualise}
-                      endVisualise={endVisualise} 
-                      isVisualising={isVisualising} 
-                      isWallMode={isWallMode} 
-                      pathFindingAlgo={currentAlgo}
-                      mazePatternAlgo={mazePatternAlgo}
-                      />
+        endVisualise={endVisualise}
+        isVisualising={isVisualising}
+        isWallMode={isWallMode}
+        pathFindingAlgo={currentAlgo}
+        mazePatternAlgo={mazePatternAlgo}
+      />
     </div>
   );
 }

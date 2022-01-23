@@ -1,37 +1,34 @@
 import { useEffect, useState, useRef } from "react";
-import { Dijkstra } from "../../lib/Dijkstra/Dijktra.js";
-import { BreadthFirstSearch, DepthFirstSearch } from "../../lib/firstSearch/Search.js";
 import { createGridGraph, getPath, w, h, x_start_initial, x_end_initial, y_initial } from "../../lib/lib.js";
-import { randomWall } from '../../lib/maze/randomWall.js';
 import Node from "../Node/Node.jsx";
 import './PathFindingVis.css';
 
 const visualisation = (graph, startNode, endNode, speed, pathFindingAlgo) => {
   const data = pathFindingAlgo.algo(graph, startNode, endNode);
-      data.display.forEach((v, i) => {
+  data.display.forEach((v, i) => {
+    setTimeout(() => {
+      const node = document.getElementsByClassName(`id-${v}`)[0];
+      node.classList.add("visited-node");
+      node.classList.remove("not-visited-node");
+    }, i * speed);
+  });
+  if (data.found) {
+    setTimeout(() => {
+      getPath(data.prev, startNode, endNode).forEach((v, i) => {
         setTimeout(() => {
           const node = document.getElementsByClassName(`id-${v}`)[0];
-          node.classList.add("visited-node");
-          node.classList.remove("not-visited-node");
+          node.classList.remove("visited-node");
+          node.classList.add("path-node")
         }, i * speed);
       });
-      if (data.found) {
-        setTimeout(() => {
-          getPath(data.prev, startNode, endNode).forEach((v, i) => {
-            setTimeout(() => {
-              const node = document.getElementsByClassName(`id-${v}`)[0];
-              node.classList.remove("visited-node");
-              node.classList.add("path-node")
-            }, i * speed);
-          });
-        }, data.display.length * speed);
-      }
+    }, data.display.length * speed);
+  }
 }
 
 const PathFindingVis = ({ isVisualising, startVisualise, pathFindingAlgo, isWallMode, mazePatternAlgo }) => {
-  
+
   const didMount = useRef(false);
-  
+
   const [startNode, setStartNode] = useState(x_start_initial + y_initial * w);
   const [endNode, setEndNode] = useState(x_end_initial + y_initial * w);
   const [graph, setGraph] = useState(createGridGraph(w, h));
@@ -52,7 +49,7 @@ const PathFindingVis = ({ isVisualising, startVisualise, pathFindingAlgo, isWall
       toggleWall(id);
     } else {
       setClick(prevState => prevState + 1);
-      if (click % 2 === 0){
+      if (click % 2 === 0) {
         setStartNode(id);
       } else {
         setEndNode(id);
@@ -72,12 +69,10 @@ const PathFindingVis = ({ isVisualising, startVisualise, pathFindingAlgo, isWall
   const addWall = () => {
     clearGrid();
     const wall = mazePatternAlgo.algo(w, h, startNode, endNode);
-    let i = 0;
-    wall.forEach(id => {
+    wall.forEach((id, i) => {
       setTimeout(() => {
         toggleWall(id);
       }, i * 10);
-      i++;
     });
   }
 
@@ -92,31 +87,31 @@ const PathFindingVis = ({ isVisualising, startVisualise, pathFindingAlgo, isWall
 
   return (
     <div className="visualisation">
-        <div className="button">
-          <div className="title" onClick={() => startVisualise(speed * w * h)}>Visualize !</div>
-          <div className="title" onClick={() => addWall()}>Add Wall !</div>
-        </div>
-        <div className="grid">
-          {grid.map((row, y) => {
-            return (
-              <div key={y} className="row">
-                {row.map((_, x) => {
-                  const id = w * y + x;
-                  const props = {
-                    key:id,
-                    id:id, 
-                    y:y,
-                    x:x,
-                    handleClick:handleClick,
-                    isStart: id === startNode,
-                    isEnd: id === endNode,
-                  }
-                  return <Node {...props}/>
-                })}
-              </div>
-            );
-          })}
-        </div>  
+      <div className="button">
+        <div className="title" onClick={() => startVisualise(speed * w * h)}>Visualize !</div>
+        <div className="title" onClick={() => addWall()}>Add Wall !</div>
+      </div>
+      <div className="grid">
+        {grid.map((row, y) => {
+          return (
+            <div key={y} className="row">
+              {row.map((_, x) => {
+                const id = w * y + x;
+                const props = {
+                  key: id,
+                  id: id,
+                  y: y,
+                  x: x,
+                  handleClick: handleClick,
+                  isStart: id === startNode,
+                  isEnd: id === endNode,
+                }
+                return <Node {...props} />
+              })}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
