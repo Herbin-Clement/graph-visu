@@ -12,12 +12,14 @@
     display: flex;
 }
 
-.title {
+.button {
     color: #FED053;
-    font-size: larger;
+    font-weight: 600;
+    font-size: x-large;
+    cursor: pointer;
 }
 
-.button {
+.buttons {
     width: 50%;
     display: flex;
     justify-content: space-around;

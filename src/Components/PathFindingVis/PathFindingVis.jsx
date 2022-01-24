@@ -3,8 +3,9 @@ import { createGridGraph, getPath, w, h, x_start_initial, x_end_initial, y_initi
 import Node from "../Node/Node.jsx";
 import './PathFindingVis.css';
 
-const visualisation = (graph, startNode, endNode, speed, pathFindingAlgo) => {
+const visualisation = (graph, startNode, endNode, speed, pathFindingAlgo, setIsVisualising) => {
   const data = pathFindingAlgo.algo(graph, startNode, endNode);
+  const path = getPath(data.prev, startNode, endNode);
   data.display.forEach((v, i) => {
     setTimeout(() => {
       const node = document.getElementsByClassName(`id-${v}`)[0];
@@ -14,7 +15,7 @@ const visualisation = (graph, startNode, endNode, speed, pathFindingAlgo) => {
   });
   if (data.found) {
     setTimeout(() => {
-      getPath(data.prev, startNode, endNode).forEach((v, i) => {
+      path.forEach((v, i) => {
         setTimeout(() => {
           const node = document.getElementsByClassName(`id-${v}`)[0];
           node.classList.remove("visited-node");
@@ -23,9 +24,10 @@ const visualisation = (graph, startNode, endNode, speed, pathFindingAlgo) => {
       });
     }, data.display.length * speed);
   }
+  setTimeout(() => setIsVisualising(false), (data.display.length + path.length) * speed);
 }
 
-const PathFindingVis = ({ isVisualising, startVisualise, pathFindingAlgo, isWallMode, mazePatternAlgo }) => {
+const PathFindingVis = ({ pathFindingAlgo, isWallMode, mazePatternAlgo }) => {
 
   const didMount = useRef(false);
 
@@ -35,14 +37,24 @@ const PathFindingVis = ({ isVisualising, startVisualise, pathFindingAlgo, isWall
   const [grid, setGrid] = useState(graph.getGraphRepresentation());
   const [click, setClick] = useState(0);
   const [speed, setSpeed] = useState(5);
+  const [isVisualising, setIsVisualising] = useState(false);
+  const [canVisualise, setCanVisualise] = useState(true);
 
-  useEffect(() => {
-    if (didMount.current) {
-      visualisation(graph, startNode, endNode, speed, pathFindingAlgo);
-    } else {
-      didMount.current = true;
+  // useEffect(() => {
+  //   if (didMount.current) {
+  //     visualisation(graph, startNode, endNode, speed, pathFindingAlgo);
+  //   } else {
+  //     didMount.current = true;
+  //   }
+  // }, [isVisualising]);
+
+  const startVisualise = () => {
+    if (canVisualise) {
+      setIsVisualising(true);
+      setCanVisualise(false);
+      visualisation(graph, startNode, endNode, speed, pathFindingAlgo, setIsVisualising);
     }
-  }, [isVisualising]);
+  }
 
   const handleClick = (id) => {
     if (isWallMode) {
@@ -67,29 +79,45 @@ const PathFindingVis = ({ isVisualising, startVisualise, pathFindingAlgo, isWall
   }
 
   const addWall = () => {
-    clearGrid();
-    const wall = mazePatternAlgo.algo(w, h, startNode, endNode);
-    wall.forEach((id, i) => {
-      setTimeout(() => {
-        toggleWall(id);
-      }, i * 10);
-    });
+    if (!isVisualising) {
+      setCanVisualise(true);
+      clearGrid();
+      const wall = mazePatternAlgo.algo(w, h, startNode, endNode);
+      wall.forEach((id, i) => {
+        setTimeout(() => {
+          toggleWall(id);
+        }, i * 10);
+      });
+    }
   }
-
+  
   const clearGrid = () => {
-    setGraph(() => createGridGraph(w, h));
-    setGrid(() => graph.getGraphRepresentation());
-    for (let i = 0; i < w * h; i++) {
-      const div = document.getElementsByClassName(`id-${i}`)[0];
-      div.classList.remove("wall");
+    if (!isVisualising) {
+      setCanVisualise(true);
+      setGraph(() => createGridGraph(w, h));
+      setGrid(() => graph.getGraphRepresentation());
+      for (let i = 0; i < w * h; i++) {
+        const div = document.getElementsByClassName(`id-${i}`)[0];
+        div.classList.remove("wall");
+        div.classList.remove("visited-node");
+        div.classList.remove("path-node")
+        div.classList.add("not-visited-node");
+      }
     }
   }
 
   return (
     <div className="visualisation">
-      <div className="button">
-        <div className="title" onClick={() => startVisualise(speed * w * h)}>Visualize !</div>
-        <div className="title" onClick={() => addWall()}>Add Wall !</div>
+      <div className="buttons">
+        <div className="button" onClick={() => clearGrid()}
+                                style={{color: isVisualising ? "red" : ""}}
+          >Clear !</div>
+        <div className="button" onClick={() => startVisualise()}
+                                style={{color: isVisualising || !canVisualise ? "red" : ""}}
+          >Visualize !</div>
+        <div className="button" onClick={() => addWall()}
+                                style={{color: isVisualising ? "red" : ""}}
+          >Add Wall !</div>
       </div>
       <div className="grid">
         {grid.map((row, y) => {
