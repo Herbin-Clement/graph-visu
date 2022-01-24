@@ -1,3 +1,12 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3.2vh;
+    height: 3.2vh;
+    background-color: #1E2328;
+}
+
 .vertice {
     box-sizing: border-box;
     display: flex;
@@ -30,7 +39,8 @@
 }
 
 .visited-node {
-    background-color: #679BF1;
+    background-color: #FED053;
+    animation: fadein 1s ease-in;
 }
 
 .not-visited-node {
@@ -38,11 +48,27 @@
 }
 
 .path-node {
-    background-color: #F8DE7E;
+    background-color: #f2ebe9;
+    animation: fadein 2s ease-in;
 }
 
 .wall {
-    background-color: deeppink;
+    box-sizing: border-box;
+    background-color: #de5499;
+    animation: fadein 1s ease-in;
+}
+
+@keyframes fadein {
+    0% {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+    100% {
+        opacity: 1;
+        width: 3.2vh;
+        height: 3.2vh;
+    }
 }
 
 .subcircle {

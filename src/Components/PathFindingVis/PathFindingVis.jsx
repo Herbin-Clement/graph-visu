@@ -36,7 +36,7 @@ const PathFindingVis = ({ pathFindingAlgo, isWallMode, mazePatternAlgo }) => {
   const [graph, setGraph] = useState(createGridGraph(w, h));
   const [grid, setGrid] = useState(graph.getGraphRepresentation());
   const [click, setClick] = useState(0);
-  const [speed, setSpeed] = useState(5);
+  const [speed, setSpeed] = useState(10);
   const [isVisualising, setIsVisualising] = useState(false);
   const [canVisualise, setCanVisualise] = useState(true);
 
@@ -80,14 +80,15 @@ const PathFindingVis = ({ pathFindingAlgo, isWallMode, mazePatternAlgo }) => {
 
   const addWall = () => {
     if (!isVisualising) {
-      setCanVisualise(true);
       clearGrid();
+      setCanVisualise(false);
       const wall = mazePatternAlgo.algo(w, h, startNode, endNode);
       wall.forEach((id, i) => {
         setTimeout(() => {
           toggleWall(id);
-        }, i * 10);
+        }, i * speed);
       });
+      setTimeout(() => setCanVisualise(true), wall.length * speed);
     }
   }
   
