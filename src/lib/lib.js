@@ -31,13 +31,15 @@ const createGridGraph = (w, h) => {
 
 
 const getPath = (prev, start, end) => {
-    const path = [];
+    let path = [];
     let current_node = end;
     while (current_node !== start) {
         path.push(current_node);
         current_node = prev[current_node];
     }
     path.push(current_node);
+    path.shift();
+    path.pop();
     return path.reverse();
 }
 

@@ -20,7 +20,7 @@ const visualisation = (graph, startNode, endNode, speed, pathFindingAlgo, setIsV
           const node = document.getElementsByClassName(`id-${v}`)[0];
           node.classList.remove("visited-node");
           node.classList.add("path-node")
-        }, i * speed);
+        }, i * speed * 3);
       });
     }, data.display.length * speed);
   }
@@ -28,8 +28,6 @@ const visualisation = (graph, startNode, endNode, speed, pathFindingAlgo, setIsV
 }
 
 const PathFindingVis = ({ pathFindingAlgo, isWallMode, mazePatternAlgo }) => {
-
-  const didMount = useRef(false);
 
   const [startNode, setStartNode] = useState(x_start_initial + y_initial * w);
   const [endNode, setEndNode] = useState(x_end_initial + y_initial * w);
@@ -39,14 +37,7 @@ const PathFindingVis = ({ pathFindingAlgo, isWallMode, mazePatternAlgo }) => {
   const [speed, setSpeed] = useState(10);
   const [isVisualising, setIsVisualising] = useState(false);
   const [canVisualise, setCanVisualise] = useState(true);
-
-  // useEffect(() => {
-  //   if (didMount.current) {
-  //     visualisation(graph, startNode, endNode, speed, pathFindingAlgo);
-  //   } else {
-  //     didMount.current = true;
-  //   }
-  // }, [isVisualising]);
+  const [walls, setWalls] = useState([]);
 
   const startVisualise = () => {
     if (canVisualise) {
@@ -60,11 +51,13 @@ const PathFindingVis = ({ pathFindingAlgo, isWallMode, mazePatternAlgo }) => {
     if (isWallMode) {
       toggleWall(id);
     } else {
-      setClick(prevState => prevState + 1);
-      if (click % 2 === 0) {
-        setStartNode(id);
-      } else {
-        setEndNode(id);
+      if (!walls.includes(id) && id !== startNode && id !== endNode) {
+        setClick(prevState => prevState + 1);
+        if (click % 2 === 0) {
+          setStartNode(id);
+        } else {
+          setEndNode(id);
+        }
       }
     }
   }
