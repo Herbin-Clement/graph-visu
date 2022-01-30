@@ -7,7 +7,7 @@ const Node = ({id, handleClick, isStart, isEnd}) => {
             <div onClick={() => handleClick(id)}
                 className={`id-${id} vertice not-visited-node`}
                 style={{
-                    backgroundColor: isStart || isEnd ? "#FFC40A" : ""
+                    backgroundColor: isStart || isEnd ? "#00ADB5" : ""
                 }}
                 >
                     {isStart && <div className="circle start"></div>}

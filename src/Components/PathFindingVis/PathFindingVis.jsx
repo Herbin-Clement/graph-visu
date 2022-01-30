@@ -6,6 +6,7 @@ import './PathFindingVis.css';
 const visualisation = (graph, startNode, endNode, speed, pathFindingAlgo, setIsVisualising) => {
   const data = pathFindingAlgo.algo(graph, startNode, endNode);
   const path = getPath(data.prev, startNode, endNode);
+  data.display.pop();
   data.display.forEach((v, i) => {
     setTimeout(() => {
       const node = document.getElementsByClassName(`id-${v}`)[0];
@@ -20,11 +21,11 @@ const visualisation = (graph, startNode, endNode, speed, pathFindingAlgo, setIsV
           const node = document.getElementsByClassName(`id-${v}`)[0];
           node.classList.remove("visited-node");
           node.classList.add("path-node")
-        }, i * speed * 3);
+        }, i * speed * 3 + 1000);
       });
     }, data.display.length * speed);
   }
-  setTimeout(() => setIsVisualising(false), (data.display.length + path.length) * speed);
+  setTimeout(() => setIsVisualising(false), (data.display.length + path.length) * speed + 1000);
 }
 
 const PathFindingVis = ({ pathFindingAlgo, isWallMode, mazePatternAlgo }) => {
@@ -81,7 +82,7 @@ const PathFindingVis = ({ pathFindingAlgo, isWallMode, mazePatternAlgo }) => {
           toggleWall(id);
         }, i * speed);
       });
-      setTimeout(() => setCanVisualise(true), wall.length * speed);
+      setTimeout(() => setCanVisualise(true), wall.length * speed + 1000);
     }
   }
   
