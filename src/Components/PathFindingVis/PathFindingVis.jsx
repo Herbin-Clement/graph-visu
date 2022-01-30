@@ -78,11 +78,12 @@ const PathFindingVis = ({ pathFindingAlgo, isWallMode, mazePatternAlgo }) => {
       setCanVisualise(false);
       const wall = mazePatternAlgo.algo(w, h, startNode, endNode);
       wall.forEach((id, i) => {
-        setTimeout(() => {
+        // setTimeout(() => {
+          // }, i * speed);
           toggleWall(id);
-        }, i * speed);
       });
-      setTimeout(() => setCanVisualise(true), wall.length * speed + 1000);
+      // setTimeout(() => setCanVisualise(true), wall.length * speed + 1000);
+      setTimeout(() => setCanVisualise(true), 1000);
     }
   }
   
