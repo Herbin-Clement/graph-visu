@@ -64,6 +64,7 @@ const PathFindingVis = ({ pathFindingAlgo, isWallMode, mazePatternAlgo }) => {
   }
 
   const toggleWall = (id) => {
+    console.log(id);
     setGraph(prevState => {
       prevState.toggle_vertice(id);
       return prevState;

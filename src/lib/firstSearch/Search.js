@@ -1,5 +1,4 @@
 const BreadthFirstSearch = (G, start_vertice, end_vertice) => {
-    console.log("je rentre")
     const res = [];
     let prev = new Array(G.get_nb_vertice());
     const display = [];
@@ -26,7 +25,6 @@ const BreadthFirstSearch = (G, start_vertice, end_vertice) => {
 }
 
 const DepthFirstSearch = (G, start_vertice, end_vertice) => {
-    console.log("je rentre")
     const res = [];
     let prev = new Array(G.get_nb_vertice());
     const display = [];
